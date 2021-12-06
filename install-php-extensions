@@ -972,11 +972,11 @@ buildRequiredPackageLists() {
 				buildRequiredPackageLists_persistent="$buildRequiredPackageLists_persistent libct4"
 				buildRequiredPackageLists_volatile="$buildRequiredPackageLists_volatile freetds-dev"
 				;;
-			tdlib@alpine)
+			phptdlib@alpine)
 				buildRequiredPackageLists_persistent="$buildRequiredPackageLists_persistent libstdc++ $buildRequiredPackageLists_libssl"
 				buildRequiredPackageLists_volatile="$buildRequiredPackageLists_volatile git cmake gperf zlib-dev $buildRequiredPackageLists_libssldev linux-headers readline-dev"
 				;;
-			tdlib@debian)
+			phptdlib@debian)
 				buildRequiredPackageLists_volatile="$buildRequiredPackageLists_volatile git cmake gperf zlib1g-dev $buildRequiredPackageLists_libssldev"
 				;;
 			tensor@alpine)
@@ -2702,14 +2702,16 @@ installRemoteModule() {
 				addConfigureOption enable-mysqlnd yes
 			fi
 			;;
-		tdlib)
+		phptdlib)
 			if ! test -f /usr/lib/libphpcpp.so || ! test -f /usr/include/phpcpp.h; then
 				if test $PHP_MAJMIN_VERSION -le 701; then
 					cd "$(getPackageSource https://codeload.github.com/CopernicaMarketingSoftware/PHP-CPP/tar.gz/v2.1.4)"
 				elif test $PHP_MAJMIN_VERSION -le 703; then
 					cd "$(getPackageSource https://codeload.github.com/CopernicaMarketingSoftware/PHP-CPP/tar.gz/v2.2.0)"
+				elif test $PHP_MAJMIN_VERSION -le 704; then
+					cd "$(getPackageSource https://codeload.github.com/CopernicaMarketingSoftware/PHP-CPP/tar.gz/v2.3.0)"
 				else
-					cd "$(getPackageSource https://codeload.github.com/CopernicaMarketingSoftware/PHP-CPP/tar.gz/444d1f90cf6b7f3cb5178fa0d0b5ab441b0389d0)"
+					cd "$(getPackageSource https://codeload.github.com/CopernicaMarketingSoftware/PHP-CPP/tar.gz/master)"
 				fi
 				make -j$(getProcessorCount)
 				make install
@@ -2934,7 +2936,7 @@ moduleMayUsePecl() {
 		@composer | @fix_letsencrypt)
 			return 1
 			;;
-		blackfire | ioncube_loader | snuffleupagus | sourceguardian | spx | tdlib)
+		blackfire | ioncube_loader | snuffleupagus | sourceguardian | spx | phptdlib)
 			return 1
 			;;
 	esac
