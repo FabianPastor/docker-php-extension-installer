@@ -972,11 +972,11 @@ buildRequiredPackageLists() {
 				buildRequiredPackageLists_persistent="$buildRequiredPackageLists_persistent libct4"
 				buildRequiredPackageLists_volatile="$buildRequiredPackageLists_volatile freetds-dev"
 				;;
-			phptdlib@alpine)
+			tdlib@alpine)
 				buildRequiredPackageLists_persistent="$buildRequiredPackageLists_persistent libstdc++ $buildRequiredPackageLists_libssl"
 				buildRequiredPackageLists_volatile="$buildRequiredPackageLists_volatile git cmake gperf zlib-dev $buildRequiredPackageLists_libssldev linux-headers readline-dev"
 				;;
-			phptdlib@debian)
+			tdlib@debian)
 				buildRequiredPackageLists_volatile="$buildRequiredPackageLists_volatile git cmake gperf zlib1g-dev $buildRequiredPackageLists_libssldev"
 				;;
 			tensor@alpine)
@@ -2702,7 +2702,7 @@ installRemoteModule() {
 				addConfigureOption enable-mysqlnd yes
 			fi
 			;;
-		phptdlib)
+		tdlib)
 			if ! test -f /usr/lib/libphpcpp.so || ! test -f /usr/include/phpcpp.h; then
 				if test $PHP_MAJMIN_VERSION -le 701; then
 					cd "$(getPackageSource https://codeload.github.com/CopernicaMarketingSoftware/PHP-CPP/tar.gz/v2.1.4)"
@@ -2936,7 +2936,7 @@ moduleMayUsePecl() {
 		@composer | @fix_letsencrypt)
 			return 1
 			;;
-		blackfire | ioncube_loader | snuffleupagus | sourceguardian | spx | phptdlib)
+		blackfire | ioncube_loader | snuffleupagus | sourceguardian | spx | tdlib)
 			return 1
 			;;
 	esac
